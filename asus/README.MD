@@ -38,9 +38,12 @@
 	
 	#opkg install shadowsocks-libev-ss-redir
 	#opkg install dnsmasq-full
+	#opkg install rng-tools
 
 
-## 3 dnsmasq
+## 3 dns server
+
+### 3.1 dnsmasq
 	192.168.0.1,192.168.1.1 etc.
 
 	#genpac --format=dnsmasq --dnsmasq-dns="192.168.*.1#53" --dnsmasq-ipset "gfwlist" -o gfwlist.conf
@@ -58,8 +61,22 @@
 
 	start dnsmasq：/opt/etc/init.d/S**dnsmasq restart|start|stop
 
+	/opt/sbin/rngd -f -r /dev/urandom
+
+### 3.2 unbound+dnscrypt-proxy
+	https://wido.me/sunteya/use-openwrt-resolve-gfw-dns-spoofing
+
+	https://blog.phoenixlzx.com/2016/04/27/better-dns-with-unbound/
+	https://cokebar.info/archives/246
+
 ## 4 ss
 	server: vultr,Los Angeles.(tokyo,singapore dead now),python or libev
+	2018-01-6:switch to sydney
+	
+	systemctl start firewalld.service
+	firewall-cmd --zone=public --add-port=443/tcp --permanent
+	firewall-cmd --reload
+
 	route client: ss-redir -c /opt/etc/shadowsocks.json -b 0.0.0.0
 	
 
