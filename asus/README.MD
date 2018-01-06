@@ -73,9 +73,7 @@
 	server: vultr,Los Angeles.(tokyo,singapore dead now),python or libev
 	2018-01-6:switch to sydney
 	
-	systemctl start firewalld.service
-	firewall-cmd --zone=public --add-port=443/tcp --permanent
-	firewall-cmd --reload
+	
 
 	route client: ss-redir -c /opt/etc/shadowsocks.json -b 0.0.0.0
 	
